@@ -1,0 +1,101 @@
+{
+  "cutoff": "2025-09-01T00:00:00",
+  "packages": [
+    {
+      "package": "numpy",
+      "version": "2.2.6",
+      "released": "2025-05-17T21:27:58",
+      "source": "https://pypi.org/project/numpy/2.2.6/",
+      "latest_allowed_upload": "2025-05-17T22:38:04",
+      "locked_distributions": 55
+    },
+    {
+      "package": "matplotlib",
+      "version": "3.10.3",
+      "released": "2025-05-08T19:09:39",
+      "source": "https://pypi.org/project/matplotlib/3.10.3/",
+      "latest_allowed_upload": "2025-05-08T19:10:54",
+      "locked_distributions": 34
+    },
+    {
+      "package": "contourpy",
+      "version": "1.3.2",
+      "released": "2025-04-15T17:34:46",
+      "source": "https://pypi.org/project/contourpy/1.3.2/",
+      "latest_allowed_upload": "2025-04-15T17:47:53",
+      "locked_distributions": 57
+    },
+    {
+      "package": "cycler",
+      "version": "0.12.1",
+      "released": "2023-10-07T05:32:16",
+      "source": "https://pypi.org/project/cycler/0.12.1/",
+      "latest_allowed_upload": "2023-10-07T05:32:18",
+      "locked_distributions": 2
+    },
+    {
+      "package": "fonttools",
+      "version": "4.58.0",
+      "released": "2025-05-10T17:34:55",
+      "source": "https://pypi.org/project/fonttools/4.58.0/",
+      "latest_allowed_upload": "2025-05-10T17:36:35",
+      "locked_distributions": 42
+    },
+    {
+      "package": "kiwisolver",
+      "version": "1.4.8",
+      "released": "2024-12-24T18:28:17",
+      "source": "https://pypi.org/project/kiwisolver/1.4.8/",
+      "latest_allowed_upload": "2024-12-24T18:30:51",
+      "locked_distributions": 80
+    },
+    {
+      "package": "packaging",
+      "version": "25.0",
+      "released": "2025-04-19T11:48:57",
+      "source": "https://pypi.org/project/packaging/25.0/",
+      "latest_allowed_upload": "2025-04-19T11:48:59",
+      "locked_distributions": 2
+    },
+    {
+      "package": "pillow",
+      "version": "11.2.1",
+      "released": "2025-04-12T17:47:10",
+      "source": "https://pypi.org/project/pillow/11.2.1/",
+      "latest_allowed_upload": "2025-04-12T17:50:03",
+      "locked_distributions": 81
+    },
+    {
+      "package": "pyparsing",
+      "version": "3.2.3",
+      "released": "2025-03-25T05:01:24",
+      "source": "https://pypi.org/project/pyparsing/3.2.3/",
+      "latest_allowed_upload": "2025-03-25T05:01:28",
+      "locked_distributions": 2
+    },
+    {
+      "package": "python-dateutil",
+      "version": "2.9.0.post0",
+      "released": "2024-03-01T18:36:18",
+      "source": "https://pypi.org/project/python-dateutil/2.9.0.post0/",
+      "latest_allowed_upload": "2024-03-01T18:36:20",
+      "locked_distributions": 2
+    },
+    {
+      "package": "six",
+      "version": "1.17.0",
+      "released": "2024-12-04T17:35:26",
+      "source": "https://pypi.org/project/six/1.17.0/",
+      "latest_allowed_upload": "2024-12-04T17:35:28",
+      "locked_distributions": 2
+    },
+    {
+      "package": "pip",
+      "version": "25.1.1",
+      "released": "2025-05-02T15:13:59",
+      "source": "https://pypi.org/project/pip/25.1.1/",
+      "latest_allowed_upload": "2025-05-02T15:14:02",
+      "locked_distributions": 2
+    }
+  ]
+}
