@@ -55,7 +55,7 @@ def main():
                     results.append(result)
                 print(f"{scenario}: {policy}, {args.trials} trials", flush=True)
         with (args.output / "trials.csv").open("w", newline="") as stream:
-            writer = csv.DictWriter(stream, fieldnames=asdict(results[0]))
+            writer = csv.DictWriter(stream, fieldnames=asdict(results[0]), lineterminator="\n")
             writer.writeheader()
             writer.writerows(asdict(r) for r in results)
         summary = summarize(results)
