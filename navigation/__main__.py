@@ -2,6 +2,7 @@ import argparse
 import csv
 from dataclasses import asdict
 import json
+import hashlib
 from pathlib import Path
 import platform
 
@@ -10,6 +11,7 @@ import numpy as np
 from .robot import SCENARIOS
 from .simulation import run, summarize, TRACE_COLUMNS
 from .world import World
+from .controller import Controller
 
 
 def positive_int(value):
@@ -38,6 +40,8 @@ def main():
     if not np.isfinite(args.max_time) or args.max_time < 0.1:
         parser.error("max-time must be finite and at least 0.1 seconds")
     args.output.mkdir(parents=True, exist_ok=True)
+    source_hashes = {path.name: hashlib.sha256(path.read_bytes()).hexdigest()
+                     for path in sorted(Path(__file__).parent.glob("*.py"))}
     if args.command == "demo":
         from .plots import plot_run
         result, history, path = run(args.seed, args.scenario, args.policy, args.max_time, trace=True)
@@ -61,6 +65,9 @@ def main():
         summary = summarize(results)
         metadata = {"python": platform.python_version(), "numpy": np.__version__, "seed": args.seed,
                     "trials_per_group": args.trials, "dt_s": 0.1, "max_time_s": args.max_time,
+                    "source_sha256": source_hashes, "world": asdict(World()),
+                    "estimated_goal_tolerance_m": Controller.goal_tolerance,
+                    "true_goal_tolerance_m": 0.35,
                     "scenarios": {name: asdict(SCENARIOS[name]) for name in dict.fromkeys(args.scenarios)}}
         (args.output / "summary.json").write_text(json.dumps({"settings": metadata, "groups": summary}, indent=2) + "\n")
         plot_summary(summary, args.output / "comparison.png")

@@ -62,8 +62,47 @@ class PlanningTests(unittest.TestCase):
         self.assertTrue(world.free((3, 2), 0.2))
         self.assertFalse(world.segment_free((1, 2), (3, 2), 0.2))
 
+    def test_safe_endpoint_can_connect_outside_its_grid_cell(self):
+        world = World()
+        for start in ((3.0, 6.1), (7.375, 3.51), (7.9683, 3.525)):
+            self.assertTrue(world.free(start, 0.45))
+            path = world.plan(start, world.goal)
+            self.assertEqual(path[0], start)
+            self.assertTrue(all(world.segment_free(a, b, 0.45) for a, b in zip(path, path[1:])))
+
+    def test_sweep_catches_contact_between_sample_points(self):
+        world = World(obstacles=((2.015, 2.1998, 2.025, 2.3),))
+        self.assertTrue(world.free((2, 2), 0.2))
+        self.assertTrue(world.free((2.039, 2), 0.2))
+        self.assertFalse(world.segment_free((2, 2), (2.039, 2), 0.2))
+
+    def test_sweep_preserves_round_corner_clearance(self):
+        world = World(obstacles=((2, 2, 3, 3),))
+        self.assertTrue(world.segment_free((1.8, 1.85), (1.85, 1.8), 0.2))
+        self.assertFalse(world.segment_free((1.8, 2), (1.8, 3), 0.2))
+
 
 class FilterTests(unittest.TestCase):
+    def test_transition_covariance_matches_numerical_jacobian(self):
+        state = np.array([1., 2., 0.7, 0.5, 0.6, 0.01])
+        covariance = np.diag([0.01, 0.02, 0.03, 0.04, 0.05, 0.06])
+        jacobian = np.zeros((6, 6))
+        for column in range(6):
+            predicted = []
+            for sign in (-1, 1):
+                filter = EKF(state[:3])
+                filter.state = state.copy()
+                filter.state[column] += sign * 1e-6
+                filter.predict(0.1)
+                predicted.append(filter.state.copy())
+            jacobian[:, column] = (predicted[1] - predicted[0]) / 2e-6
+        noisy, zero = EKF(state[:3]), EKF(state[:3])
+        noisy.state, zero.state = state.copy(), state.copy()
+        noisy.cov, zero.cov = covariance.copy(), np.zeros((6, 6))
+        noisy.predict(0.1)
+        zero.predict(0.1)
+        np.testing.assert_allclose(noisy.cov - zero.cov, jacobian @ covariance @ jacobian.T, atol=1e-9)
+
     def test_stationary_bias_and_covariance(self):
         ekf = EKF((1, 1, 0))
         for _ in range(150):
@@ -84,6 +123,14 @@ class FilterTests(unittest.TestCase):
 
 
 class ControllerTests(unittest.TestCase):
+    def test_controller_gets_close_to_estimated_goal_before_stopping(self):
+        controller = Controller(World(obstacles=(), goal=(11, 1)))
+        speed, _ = controller.command(np.array([10.9, 1, 0]), 0.01, 0, 0, 0.1)
+        self.assertFalse(controller.finished)
+        self.assertGreater(speed, 0)
+        self.assertEqual(controller.command(np.array([10.95, 1, 0]), 0.01, 0, 1, 0.1), (0, 0))
+        self.assertTrue(controller.finished)
+
     def test_uncertainty_reduces_speed(self):
         world = World(obstacles=(), goal=(11, 1))
         state = np.array([1, 1, 0, 0, 0, 0])
@@ -122,6 +169,18 @@ class SimulationTests(unittest.TestCase):
         for dt in (0, -1, math.nan, math.inf):
             with self.assertRaises(ValueError):
                 run(dt=dt)
+
+    def test_decimal_time_limit_does_not_drop_a_step(self):
+        result, history, _ = run(max_time=0.3, trace=True)
+        self.assertEqual(len(history), 3)
+        self.assertAlmostEqual(result.elapsed_s, 0.3)
+
+    def test_reported_errors_match_saved_truth(self):
+        result, history, _ = run(seed=17, max_time=2, trace=True)
+        errors = np.linalg.norm(history[:, 1:3] - history[:, 4:6], axis=1)
+        self.assertAlmostEqual(result.position_rmse_m, np.sqrt(np.mean(errors**2)))
+        self.assertAlmostEqual(result.final_error_m, errors[-1])
+        self.assertAlmostEqual(result.goal_error_m, np.linalg.norm(history[-1, 1:3] - World().goal))
 
     def test_nominal_reaches_goal(self):
         result, _, _ = run(seed=0, scenario="nominal")

@@ -21,6 +21,7 @@ class Result:
     odometry_rmse_m: float
     heading_rmse_rad: float
     final_error_m: float
+    goal_error_m: float
     recoveries: int
     elapsed_s: float
     time_to_goal_s: float | None
@@ -40,7 +41,7 @@ def run(seed=0, scenario="nominal", policy="adaptive", max_time=120.0, dt=0.1,
     errors, odom_errors, heading_errors, history = [], [], [], []
     outcome, elapsed = "timeout", 0.0
     initial_path = list(controller.path)
-    for step in range(math.floor(max_time / dt)):
+    for step in range(math.floor(math.nextafter(max_time / dt, math.inf))):
         speed, turn = controller.command(ekf.state, ekf.position_sigma,
                                          ekf.slip_score, step * dt, dt)
         if controller.finished:
@@ -65,7 +66,7 @@ def run(seed=0, scenario="nominal", policy="adaptive", max_time=120.0, dt=0.1,
         if not world.segment_free(previous, robot.pose, robot.radius):
             outcome = "collision"
             break
-    if outcome == "timeout" and np.linalg.norm(ekf.state[:2] - world.goal) < 0.18:
+    if outcome == "timeout" and np.linalg.norm(ekf.state[:2] - world.goal) < controller.goal_tolerance:
         outcome = "success" if np.linalg.norm(robot.pose[:2] - world.goal) < 0.35 else "missed_goal"
 
     def rmse(values):
@@ -73,7 +74,8 @@ def run(seed=0, scenario="nominal", policy="adaptive", max_time=120.0, dt=0.1,
 
     result = Result(seed, scenario, policy, outcome, outcome == "success", int(outcome == "collision"),
                     rmse(errors), rmse(odom_errors), rmse(heading_errors),
-                    float(np.linalg.norm(robot.pose[:2] - ekf.state[:2])), controller.recoveries,
+                    float(np.linalg.norm(robot.pose[:2] - ekf.state[:2])),
+                    float(np.linalg.norm(robot.pose[:2] - world.goal)), controller.recoveries,
                     elapsed, elapsed if outcome == "success" else None)
     return result, np.array(history), initial_path
 
@@ -104,6 +106,8 @@ def summarize(results):
             "mean_position_rmse_m": float(np.mean([r.position_rmse_m for r in trials])),
             "mean_odometry_rmse_m": float(np.mean([r.odometry_rmse_m for r in trials])),
             "mean_recoveries": float(np.mean([r.recoveries for r in trials])),
+            "mean_elapsed_s": float(np.mean([r.elapsed_s for r in trials])),
+            "mean_goal_error_m": float(np.mean([r.goal_error_m for r in trials])),
             "mean_time_to_goal_s": float(np.mean(times)) if times else None,
             "outcomes": {name: sum(r.outcome == name for r in trials)
                          for name in sorted({r.outcome for r in trials})},

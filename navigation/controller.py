@@ -6,6 +6,8 @@ from .robot import wrap
 
 
 class Controller:
+    goal_tolerance = 0.06
+
     def __init__(self, world, adaptive=True):
         self.world = world
         self.adaptive = adaptive
@@ -21,7 +23,7 @@ class Controller:
     def command(self, estimate, position_sigma, slip_score, time, dt):
         pose = estimate[:3]
         distance = np.linalg.norm(np.asarray(self.world.goal) - pose[:2])
-        if distance < 0.18:
+        if distance < self.goal_tolerance:
             self.finished = True
             return 0.0, 0.0
         if time < self.recovery_until:

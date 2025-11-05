@@ -26,10 +26,31 @@ class World:
         return True
 
     def segment_free(self, start, end, radius):
-        start, end = np.asarray(start)[:2], np.asarray(end)[:2]
-        count = max(1, math.ceil(np.linalg.norm(end - start) / 0.04))
-        return all(self.free(start + (end - start) * i / count, radius)
-                   for i in range(count + 1))
+        ax, ay = start[:2]
+        bx, by = end[:2]
+        if not self.free(start, radius) or not self.free(end, radius):
+            return False
+        dx, dy = bx - ax, by - ay
+        length_squared = dx*dx + dy*dy
+        if length_squared == 0:
+            return True
+        for x0, y0, x1, y1 in self.obstacles:
+            enter, leave = 0.0, 1.0
+            for position, delta, low, high in ((ax, dx, x0, x1), (ay, dy, y0, y1)):
+                if delta == 0:
+                    if position < low or position > high:
+                        enter, leave = 1.0, 0.0
+                        break
+                else:
+                    t0, t1 = sorted(((low - position) / delta, (high - position) / delta))
+                    enter, leave = max(enter, t0), min(leave, t1)
+            if enter <= leave:
+                return False
+            for x, y in ((x0, y0), (x0, y1), (x1, y0), (x1, y1)):
+                t = max(0.0, min(1.0, ((x - ax)*dx + (y - ay)*dy) / length_squared))
+                if (x - ax - t*dx)**2 + (y - ay - t*dy)**2 <= radius**2:
+                    return False
+        return True
 
     def plan(self, start, goal, radius=0.45):
         if not self.free(start, radius) or not self.free(goal, radius):
@@ -45,9 +66,20 @@ class World:
 
         occupied = {(x, y) for x in range(nx) for y in range(ny)
                     if not self.free(point((x, y)), radius)}
-        first, last = cell(start), cell(goal)
-        if first in occupied or last in occupied:
-            raise ValueError("Start or goal grid cell is blocked")
+        def connect(endpoint):
+            cx, cy = cell(endpoint)
+            if (cx, cy) not in occupied and self.segment_free(endpoint, point((cx, cy)), radius):
+                return cx, cy
+            nearby = [(x, y) for x in range(max(0, cx-2), min(nx, cx+3))
+                      for y in range(max(0, cy-2), min(ny, cy+3)) if (x, y) not in occupied]
+            nearby.sort(key=lambda node: (point(node)[0] - endpoint[0])**2 +
+                                        (point(node)[1] - endpoint[1])**2)
+            for node in nearby:
+                if self.segment_free(endpoint, point(node), radius):
+                    return node
+            raise ValueError("No clear connection from endpoint to planning grid")
+
+        first, last = connect(start), connect(goal)
         queue = [(0.0, first)]
         cost, parent = {first: 0.0}, {}
         visited = set()
