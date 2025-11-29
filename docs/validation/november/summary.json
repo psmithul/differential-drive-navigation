@@ -2,7 +2,7 @@
   "settings": {
     "python": "3.12.11",
     "numpy": "2.2.6",
-    "seed": 100,
+    "seed": 1000,
     "trials_per_group": 50,
     "dt_s": 0.1,
     "max_time_s": 120.0,
@@ -90,184 +90,184 @@
       "scenario": "nominal",
       "policy": "fixed",
       "trials": 50,
-      "successes": 40,
-      "success_rate": 0.8,
+      "successes": 36,
+      "success_rate": 0.72,
       "success_ci95": [
-        0.6696262789551477,
-        0.8875637005402612
+        0.5833461285401034,
+        0.8252598564231963
       ],
       "collisions": 0,
-      "mean_position_rmse_m": 0.10065085348206228,
-      "mean_odometry_rmse_m": 0.0987462827376537,
+      "mean_position_rmse_m": 0.11001919462042065,
+      "mean_odometry_rmse_m": 0.10917886869427833,
       "mean_recoveries": 0.0,
-      "mean_elapsed_s": 32.044,
-      "mean_goal_error_m": 0.22661707398607359,
-      "mean_time_to_goal_s": 32.0475,
+      "mean_elapsed_s": 32.05,
+      "mean_goal_error_m": 0.25012334281313714,
+      "mean_time_to_goal_s": 32.05,
       "outcomes": {
-        "missed_goal": 10,
-        "success": 40
+        "missed_goal": 14,
+        "success": 36
       }
     },
     {
       "scenario": "nominal",
       "policy": "adaptive",
       "trials": 50,
-      "successes": 42,
-      "success_rate": 0.84,
+      "successes": 38,
+      "success_rate": 0.76,
       "success_ci95": [
-        0.7148551903823401,
-        0.9166267863791231
+        0.6258705062480763,
+        0.8570274759812779
       ],
       "collisions": 0,
-      "mean_position_rmse_m": 0.11108867152738572,
-      "mean_odometry_rmse_m": 0.1101875954952174,
+      "mean_position_rmse_m": 0.12453355821169984,
+      "mean_odometry_rmse_m": 0.12429309681445654,
       "mean_recoveries": 0.0,
-      "mean_elapsed_s": 44.51200000000001,
-      "mean_goal_error_m": 0.22721737757029992,
-      "mean_time_to_goal_s": 44.4952380952381,
+      "mean_elapsed_s": 44.534000000000006,
+      "mean_goal_error_m": 0.2543420987806899,
+      "mean_time_to_goal_s": 44.539473684210535,
       "outcomes": {
-        "missed_goal": 8,
-        "success": 42
-      }
-    },
-    {
-      "scenario": "slip",
-      "policy": "fixed",
-      "trials": 50,
-      "successes": 3,
-      "success_rate": 0.06,
-      "success_ci95": [
-        0.020614596364630478,
-        0.16217343370877002
-      ],
-      "collisions": 35,
-      "mean_position_rmse_m": 0.3700260506150726,
-      "mean_odometry_rmse_m": 2.3835103678441247,
-      "mean_recoveries": 0.0,
-      "mean_elapsed_s": 19.312,
-      "mean_goal_error_m": 5.61687537693948,
-      "mean_time_to_goal_s": 32.333333333333336,
-      "outcomes": {
-        "collision": 35,
         "missed_goal": 12,
-        "success": 3
+        "success": 38
+      }
+    },
+    {
+      "scenario": "slip",
+      "policy": "fixed",
+      "trials": 50,
+      "successes": 1,
+      "success_rate": 0.02,
+      "success_ci95": [
+        0.0035391680889764604,
+        0.10495686471836953
+      ],
+      "collisions": 37,
+      "mean_position_rmse_m": 0.3673279729011153,
+      "mean_odometry_rmse_m": 2.692845116828816,
+      "mean_recoveries": 0.0,
+      "mean_elapsed_s": 19.376,
+      "mean_goal_error_m": 5.728937298238676,
+      "mean_time_to_goal_s": 32.300000000000004,
+      "outcomes": {
+        "collision": 37,
+        "missed_goal": 12,
+        "success": 1
       }
     },
     {
       "scenario": "slip",
       "policy": "adaptive",
       "trials": 50,
-      "successes": 22,
-      "success_rate": 0.44,
+      "successes": 21,
+      "success_rate": 0.42,
       "success_ci95": [
-        0.3116198721023534,
-        0.5769421319985648
+        0.2937479723456693,
+        0.5576680331222217
       ],
-      "collisions": 6,
-      "mean_position_rmse_m": 0.21408863843403378,
-      "mean_odometry_rmse_m": 1.9748352916046732,
-      "mean_recoveries": 5.56,
-      "mean_elapsed_s": 51.748000000000005,
-      "mean_goal_error_m": 1.5258606152436724,
-      "mean_time_to_goal_s": 55.436363636363645,
+      "collisions": 8,
+      "mean_position_rmse_m": 0.2099670413675856,
+      "mean_odometry_rmse_m": 2.1383043575680514,
+      "mean_recoveries": 5.22,
+      "mean_elapsed_s": 50.45400000000001,
+      "mean_goal_error_m": 1.7386848788994924,
+      "mean_time_to_goal_s": 56.400000000000006,
       "outcomes": {
-        "collision": 6,
-        "missed_goal": 19,
-        "recovery_limit": 2,
+        "collision": 8,
+        "missed_goal": 17,
+        "recovery_limit": 3,
         "replan_failed": 1,
-        "success": 22
+        "success": 21
       }
     },
     {
       "scenario": "drift",
       "policy": "fixed",
       "trials": 50,
-      "successes": 40,
-      "success_rate": 0.8,
+      "successes": 37,
+      "success_rate": 0.74,
       "success_ci95": [
-        0.6696262789551477,
-        0.8875637005402612
+        0.6044657801100008,
+        0.8412862034863262
       ],
       "collisions": 0,
-      "mean_position_rmse_m": 0.09991523512584885,
-      "mean_odometry_rmse_m": 0.09870538123368902,
+      "mean_position_rmse_m": 0.10967358428213558,
+      "mean_odometry_rmse_m": 0.10913597219308784,
       "mean_recoveries": 0.0,
-      "mean_elapsed_s": 32.04599999999999,
-      "mean_goal_error_m": 0.22531427482275335,
-      "mean_time_to_goal_s": 32.0475,
+      "mean_elapsed_s": 32.047999999999995,
+      "mean_goal_error_m": 0.24972253970413574,
+      "mean_time_to_goal_s": 32.048648648648644,
       "outcomes": {
+        "missed_goal": 13,
+        "success": 37
+      }
+    },
+    {
+      "scenario": "drift",
+      "policy": "adaptive",
+      "trials": 50,
+      "successes": 37,
+      "success_rate": 0.74,
+      "success_ci95": [
+        0.6044657801100008,
+        0.8412862034863262
+      ],
+      "collisions": 0,
+      "mean_position_rmse_m": 0.1260701824522936,
+      "mean_odometry_rmse_m": 0.12426077458948263,
+      "mean_recoveries": 0.0,
+      "mean_elapsed_s": 44.59,
+      "mean_goal_error_m": 0.25816869090127775,
+      "mean_time_to_goal_s": 44.61351351351352,
+      "outcomes": {
+        "missed_goal": 13,
+        "success": 37
+      }
+    },
+    {
+      "scenario": "combined",
+      "policy": "fixed",
+      "trials": 50,
+      "successes": 2,
+      "success_rate": 0.04,
+      "success_ci95": [
+        0.011038652660826577,
+        0.13460337877954667
+      ],
+      "collisions": 38,
+      "mean_position_rmse_m": 0.3788645609580352,
+      "mean_odometry_rmse_m": 2.6145940164948867,
+      "mean_recoveries": 0.0,
+      "mean_elapsed_s": 19.136000000000003,
+      "mean_goal_error_m": 5.814028644711324,
+      "mean_time_to_goal_s": 32.650000000000006,
+      "outcomes": {
+        "collision": 38,
         "missed_goal": 10,
-        "success": 40
-      }
-    },
-    {
-      "scenario": "drift",
-      "policy": "adaptive",
-      "trials": 50,
-      "successes": 42,
-      "success_rate": 0.84,
-      "success_ci95": [
-        0.7148551903823401,
-        0.9166267863791231
-      ],
-      "collisions": 0,
-      "mean_position_rmse_m": 0.1119992740413619,
-      "mean_odometry_rmse_m": 0.11010951284793291,
-      "mean_recoveries": 0.0,
-      "mean_elapsed_s": 44.586000000000006,
-      "mean_goal_error_m": 0.22858445552567225,
-      "mean_time_to_goal_s": 44.56666666666667,
-      "outcomes": {
-        "missed_goal": 8,
-        "success": 42
-      }
-    },
-    {
-      "scenario": "combined",
-      "policy": "fixed",
-      "trials": 50,
-      "successes": 3,
-      "success_rate": 0.06,
-      "success_ci95": [
-        0.020614596364630478,
-        0.16217343370877002
-      ],
-      "collisions": 36,
-      "mean_position_rmse_m": 0.3726837361188934,
-      "mean_odometry_rmse_m": 2.4002684927963713,
-      "mean_recoveries": 0.0,
-      "mean_elapsed_s": 19.402,
-      "mean_goal_error_m": 5.668464849861125,
-      "mean_time_to_goal_s": 32.333333333333336,
-      "outcomes": {
-        "collision": 36,
-        "missed_goal": 11,
-        "success": 3
+        "success": 2
       }
     },
     {
       "scenario": "combined",
       "policy": "adaptive",
       "trials": 50,
-      "successes": 22,
-      "success_rate": 0.44,
+      "successes": 19,
+      "success_rate": 0.38,
       "success_ci95": [
-        0.3116198721023534,
-        0.5769421319985648
+        0.2586259584257722,
+        0.5184980497760643
       ],
-      "collisions": 7,
-      "mean_position_rmse_m": 0.20595133187156986,
-      "mean_odometry_rmse_m": 1.9375695496923888,
-      "mean_recoveries": 5.5,
-      "mean_elapsed_s": 50.782,
-      "mean_goal_error_m": 1.6779241705862977,
-      "mean_time_to_goal_s": 55.67727272727273,
+      "collisions": 8,
+      "mean_position_rmse_m": 0.21556929899887037,
+      "mean_odometry_rmse_m": 2.137552641048271,
+      "mean_recoveries": 5.22,
+      "mean_elapsed_s": 50.46200000000002,
+      "mean_goal_error_m": 1.750724211042596,
+      "mean_time_to_goal_s": 56.91052631578948,
       "outcomes": {
-        "collision": 7,
-        "missed_goal": 18,
-        "recovery_limit": 2,
+        "collision": 8,
+        "missed_goal": 19,
+        "recovery_limit": 3,
         "replan_failed": 1,
-        "success": 22
+        "success": 19
       }
     }
   ]

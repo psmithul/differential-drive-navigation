@@ -5,11 +5,12 @@
   "outcome": "success",
   "success": true,
   "collisions": 0,
-  "position_rmse_m": 0.0708172955550126,
-  "odometry_rmse_m": 0.04009928993517069,
-  "heading_rmse_rad": 0.017679000973993643,
-  "final_error_m": 0.1768001024894735,
+  "position_rmse_m": 0.07795106599573111,
+  "odometry_rmse_m": 0.04578602522062251,
+  "heading_rmse_rad": 0.01868875521778729,
+  "final_error_m": 0.1808210075630243,
+  "goal_error_m": 0.17672997683256714,
   "recoveries": 0,
-  "elapsed_s": 44.2,
-  "time_to_goal_s": 44.2
+  "elapsed_s": 46.0,
+  "time_to_goal_s": 46.0
 }

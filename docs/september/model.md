@@ -20,16 +20,10 @@ dynamics. Commands can change instantaneously.
 A* uses a 0.25 m grid with eight neighbors and a Euclidean heuristic. Diagonal
 moves cannot pass between blocked cells. Collision checks during planning use
 a 0.45 m radius, including a 0.25 m clearance margin. A line-of-sight pass
-removes unnecessary waypoints. A safe endpoint whose grid-cell centre is blocked
-connects to a visible free cell in a 5 × 5 neighborhood, keeping the same 0.45 m
-clearance. This avoids rejecting a safe pose just because of grid rounding.
-
-Segment checks use line/rectangle intersection and corner-to-segment distance
-to test the circular footprint along the full straight segment, including
-grazing contact. Physical collision checks use the 0.20 m footprint along the
-chord between successive true positions. The chord still approximates the
-plant's circular arc over each 0.1 s step; this is not a continuous contact or
-rigid-body dynamics solver.
+removes unnecessary waypoints. Segments are checked at intervals no longer
+than 0.04 m. Physical collision checks use the 0.20 m footprint along the
+chord between successive true positions. This is a sampled sweep, not a
+continuous contact solver.
 
 ## Sensors
 
@@ -107,7 +101,7 @@ adaptive policy is not guaranteed to improve success rate.
 
 ## Scoring
 
-The controller stops when its estimate is within 0.06 m of the goal. Scoring
+The controller stops when its estimate is within 0.18 m of the goal. Scoring
 then requires true goal distance below 0.35 m for success; otherwise the trial
 is `missed_goal`. Collision, timeout, failed replanning, and exhausting the
 recovery allowance are separate failure outcomes. A collision ends a trial,
@@ -116,19 +110,10 @@ so collision count is zero or one.
 Position and heading RMSE use every recorded sample up to termination, including
 failed trials. The encoder-only trajectory provides a localization baseline
 along the same physical trial; it does not control a second robot. Final error
-means true-to-estimated position distance; `goal_error_m` separately records
-true distance to the goal. Mean elapsed time and mean goal error include all
-trials. Mean time to goal includes successful
+means true-to-estimated position distance. Mean time to goal includes successful
 trials only and is null when none succeed. Group RMSE is the arithmetic mean
 of per-trial RMSE, not an average weighted by trial duration. Success intervals
 use the 95% Wilson binomial interval.
 
 The fixed and adaptive policies use the same EKF. Their comparison isolates
 controller behavior; it is not an ablation of the filter's slip handling.
-
-The November comparison pairs trials by scenario, policy, and seed. Its 95%
-percentile bootstrap interval resamples whole paired success differences
-4,000 times with a fixed reporting seed. It is an uncertainty estimate for
-these scenarios, not a guarantee of performance on new maps or real hardware.
-Unpaired success intervals retain the
-[Wilson method](https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm).

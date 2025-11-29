@@ -1,0 +1,8 @@
+{
+  "september_revision": "c73414e70c92b9e7891ad4932015d1144a6b5ba0",
+  "replayed_trials": 400,
+  "trial_rows_equal": true,
+  "summary_equal": true,
+  "original_csv_sha256": "64fcb0cff71e64c173a5d5b933b3904b2aae1ed193af000d4648e2164f1bcac4",
+  "replay_csv_sha256": "64fcb0cff71e64c173a5d5b933b3904b2aae1ed193af000d4648e2164f1bcac4"
+}

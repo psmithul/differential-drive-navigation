@@ -1,0 +1,138 @@
+[
+  {
+    "scenario": "combined",
+    "policy": "adaptive",
+    "pairs": 50,
+    "before_successes": 11,
+    "after_successes": 22,
+    "gained_successes": 11,
+    "lost_successes": 0,
+    "success_rate_change": 0.22,
+    "paired_bootstrap_ci95": [
+      0.12,
+      0.34
+    ],
+    "before_collisions": 7,
+    "after_collisions": 7,
+    "mean_position_rmse_change_m": 0.029039852503409968
+  },
+  {
+    "scenario": "combined",
+    "policy": "fixed",
+    "pairs": 50,
+    "before_successes": 2,
+    "after_successes": 3,
+    "gained_successes": 1,
+    "lost_successes": 0,
+    "success_rate_change": 0.02,
+    "paired_bootstrap_ci95": [
+      0,
+      0.06
+    ],
+    "before_collisions": 36,
+    "after_collisions": 36,
+    "mean_position_rmse_change_m": 0.004480056472462961
+  },
+  {
+    "scenario": "drift",
+    "policy": "adaptive",
+    "pairs": 50,
+    "before_successes": 36,
+    "after_successes": 42,
+    "gained_successes": 7,
+    "lost_successes": 1,
+    "success_rate_change": 0.12,
+    "paired_bootstrap_ci95": [
+      0.02,
+      0.22
+    ],
+    "before_collisions": 0,
+    "after_collisions": 0,
+    "mean_position_rmse_change_m": 0.00616114115419553
+  },
+  {
+    "scenario": "drift",
+    "policy": "fixed",
+    "pairs": 50,
+    "before_successes": 38,
+    "after_successes": 40,
+    "gained_successes": 2,
+    "lost_successes": 0,
+    "success_rate_change": 0.04,
+    "paired_bootstrap_ci95": [
+      0,
+      0.1
+    ],
+    "before_collisions": 0,
+    "after_collisions": 0,
+    "mean_position_rmse_change_m": 0.004699605696576376
+  },
+  {
+    "scenario": "nominal",
+    "policy": "adaptive",
+    "pairs": 50,
+    "before_successes": 37,
+    "after_successes": 42,
+    "gained_successes": 6,
+    "lost_successes": 1,
+    "success_rate_change": 0.1,
+    "paired_bootstrap_ci95": [
+      0,
+      0.2
+    ],
+    "before_collisions": 0,
+    "after_collisions": 0,
+    "mean_position_rmse_change_m": 0.006079026960553232
+  },
+  {
+    "scenario": "nominal",
+    "policy": "fixed",
+    "pairs": 50,
+    "before_successes": 37,
+    "after_successes": 40,
+    "gained_successes": 3,
+    "lost_successes": 0,
+    "success_rate_change": 0.06,
+    "paired_bootstrap_ci95": [
+      0,
+      0.14
+    ],
+    "before_collisions": 0,
+    "after_collisions": 0,
+    "mean_position_rmse_change_m": 0.004717028576618544
+  },
+  {
+    "scenario": "slip",
+    "policy": "adaptive",
+    "pairs": 50,
+    "before_successes": 12,
+    "after_successes": 22,
+    "gained_successes": 10,
+    "lost_successes": 0,
+    "success_rate_change": 0.2,
+    "paired_bootstrap_ci95": [
+      0.1,
+      0.32
+    ],
+    "before_collisions": 6,
+    "after_collisions": 6,
+    "mean_position_rmse_change_m": 0.032423586527910345
+  },
+  {
+    "scenario": "slip",
+    "policy": "fixed",
+    "pairs": 50,
+    "before_successes": 2,
+    "after_successes": 3,
+    "gained_successes": 1,
+    "lost_successes": 0,
+    "success_rate_change": 0.02,
+    "paired_bootstrap_ci95": [
+      0,
+      0.06
+    ],
+    "before_collisions": 35,
+    "after_collisions": 35,
+    "mean_position_rmse_change_m": 0.004228608926102831
+  }
+]

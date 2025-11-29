@@ -1,0 +1,15 @@
+{
+  "seed": 0,
+  "scenario": "nominal",
+  "policy": "adaptive",
+  "outcome": "success",
+  "success": true,
+  "collisions": 0,
+  "position_rmse_m": 0.0708172955550126,
+  "odometry_rmse_m": 0.04009928993517069,
+  "heading_rmse_rad": 0.017679000973993643,
+  "final_error_m": 0.1768001024894735,
+  "recoveries": 0,
+  "elapsed_s": 44.2,
+  "time_to_goal_s": 44.2
+}
